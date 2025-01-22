@@ -7,7 +7,7 @@ require (
 	github.com/nix-community/go-nix v0.0.0-20241014105048-0327d78224c2
 	github.com/sirupsen/logrus v1.9.3
 	github.com/spf13/cobra v1.8.1
-	golang.org/x/mod v0.21.0
+	golang.org/x/mod v0.22.0
 	golang.org/x/tools/go/vcs v0.1.0-deprecated
 )
 
