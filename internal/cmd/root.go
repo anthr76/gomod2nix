@@ -5,10 +5,10 @@ import (
 	"os"
 	"path/filepath"
 
+	generate "github.com/anthr76/gomod2nix/internal/generate"
+	schema "github.com/anthr76/gomod2nix/internal/schema"
 	log "github.com/sirupsen/logrus"
 	"github.com/spf13/cobra"
-	generate "github.com/nix-community/gomod2nix/internal/generate"
-	schema "github.com/nix-community/gomod2nix/internal/schema"
 )
 
 const directoryDefault = "./"

@@ -47,7 +47,7 @@ buildGoApplication {
 
   meta = {
     description = "Convert applications using Go modules -> Nix";
-    homepage = "https://github.com/nix-community/gomod2nix";
+    homepage = "https://github.com/anthr76/gomod2nix";
     license = lib.licenses.mit;
     maintainers = [ lib.maintainers.adisbladis ];
   };

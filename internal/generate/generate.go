@@ -14,9 +14,9 @@ import (
 	"strings"
 	"sync"
 
+	"github.com/anthr76/gomod2nix/internal/lib"
+	schema "github.com/anthr76/gomod2nix/internal/schema"
 	"github.com/nix-community/go-nix/pkg/nar"
-	"github.com/nix-community/gomod2nix/internal/lib"
-	schema "github.com/nix-community/gomod2nix/internal/schema"
 	log "github.com/sirupsen/logrus"
 	"golang.org/x/mod/modfile"
 )

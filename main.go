@@ -1,6 +1,6 @@
 package main
 
-import "github.com/nix-community/gomod2nix/internal/cmd"
+import "github.com/anthr76/gomod2nix/internal/cmd"
 
 func main() {
 	cmd.Execute()
