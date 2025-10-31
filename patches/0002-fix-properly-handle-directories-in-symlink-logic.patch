@@ -1,0 +1,44 @@
+From 8eea38700a40a6dfe0fc87c650a57915ee8d747c Mon Sep 17 00:00:00 2001
+From: Anthony Rabbito <arabbito@coreweave.com>
+Date: Fri, 31 Oct 2025 17:03:30 -0400
+Subject: [PATCH 2/2] fix: properly handle directories in symlink logic
+
+Improves symlink handling by:
+- Creating directories with os.Mkdir when encountering a directory
+- Only creating symlinks for files
+- Recursing into directories properly
+
+This removes the need for the '|| true' workaround for overlapped
+modules and provides more robust vendoring behavior.
+
+Based on: https://github.com/nix-community/gomod2nix/pull/158
+---
+ builder/symlink/symlink.go | 11 +++++++++--
+ 1 file changed, 9 insertions(+), 2 deletions(-)
+
+diff --git a/builder/symlink/symlink.go b/builder/symlink/symlink.go
+index 29b0a08..5853800 100644
+--- a/builder/symlink/symlink.go
++++ b/builder/symlink/symlink.go
+@@ -90,9 +90,16 @@ func populateVendorPath(vendorPath string, src string) {
+ 	for _, f := range files {
+ 		innerSrc := filepath.Join(src, f.Name())
+ 		dst := filepath.Join(vendorPath, f.Name())
+-		if err := os.Symlink(innerSrc, dst); err != nil {
+-			fmt.Println("symlink error, trying", innerSrc, err)
++
++		if f.IsDir() {
++			if err := os.Mkdir(dst, 0700); err != nil && !os.IsExist(err) {
++				panic(err)
++			}
+ 			populateVendorPath(dst, innerSrc)
++		} else {
++			if err := os.Symlink(innerSrc, dst); err != nil {
++				fmt.Println("symlink error, trying", innerSrc, err)
++			}
+ 		}
+ 	}
+ }
+-- 
+2.51.0
+
