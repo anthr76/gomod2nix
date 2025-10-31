@@ -90,9 +90,16 @@ func populateVendorPath(vendorPath string, src string) {
 	for _, f := range files {
 		innerSrc := filepath.Join(src, f.Name())
 		dst := filepath.Join(vendorPath, f.Name())
-		if err := os.Symlink(innerSrc, dst); err != nil {
-			fmt.Println("symlink error, trying", innerSrc, err)
+
+		if f.IsDir() {
+			if err := os.Mkdir(dst, 0700); err != nil && !os.IsExist(err) {
+				panic(err)
+			}
 			populateVendorPath(dst, innerSrc)
+		} else {
+			if err := os.Symlink(innerSrc, dst); err != nil {
+				fmt.Println("symlink error, trying", innerSrc, err)
+			}
 		}
 	}
 }
