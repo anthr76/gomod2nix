@@ -35,6 +35,7 @@ let
     optionalAttrs
     optionalString
     pathExists
+    removeAttrs
     removePrefix
     ;
 
@@ -70,9 +71,16 @@ let
       goPackagePath,
       version,
       go,
+      previousSources,
     }:
-    stdenvNoCC.mkDerivation {
-      name = "${baseNameOf goPackagePath}_${version}";
+    let
+      packageName = "${baseNameOf goPackagePath}_${version}";
+    in
+    if hasAttr packageName previousSources then
+      previousSources.${packageName}
+    else
+      stdenvNoCC.mkDerivation {
+        name = packageName;
       builder = ./fetch.sh;
       inherit goPackagePath version;
       nativeBuildInputs = [
@@ -95,6 +103,7 @@ let
       defaultPackage ? "",
       goMod,
       pwd,
+      previousSources,
     }:
     let
       localReplaceCommands =
@@ -115,6 +124,7 @@ let
           goPackagePath = meta.replaced or goPackagePath;
           inherit (meta) version hash;
           inherit go;
+          inherit previousSources;
         }
       ) modulesStruct.mod;
     in
@@ -278,7 +288,7 @@ let
       passthru ? { },
       tags ? [ ],
       ldflags ? [ ],
-
+      sources ? { },
       ...
     }@attrs:
     let
@@ -293,13 +303,8 @@ let
       defaultPackage = modulesStruct.goPackagePath or "";
 
       vendorEnv = mkVendorEnv {
-        inherit
-          defaultPackage
-          go
-          goMod
-          modulesStruct
-          pwd
-          ;
+        inherit go modulesStruct defaultPackage goMod pwd;
+        previousSources = sources;
       };
 
       pname = attrs.pname or baseNameOf defaultPackage;
@@ -313,14 +318,8 @@ let
       }
       // optionalAttrs (hasAttr "subPackages" modulesStruct) {
         subPackages = modulesStruct.subPackages;
-      }
-      // attrs
-      // {
-        nativeBuildInputs = [
-          rsync
-          go
-        ]
-        ++ nativeBuildInputs;
+      } // removeAttrs attrs  [ "sources" ] // {
+        nativeBuildInputs = [ rsync go ] ++ nativeBuildInputs;
 
         inherit (go) GOOS GOARCH;
 
