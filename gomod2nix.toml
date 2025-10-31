@@ -8,8 +8,8 @@ schema = 3
     version = "v1.1.0"
     hash = "sha256-XWlYH0c8IcxAwQTnIi6WYqq44nOKUylSWxWO/vi+8pE="
   [mod."github.com/nix-community/go-nix"]
-    version = "v0.0.0-20220612195009-5f5614f7ca47"
-    hash = "sha256-eBPzib8STUZnDpLFpWZz+F00thbp1P/98oiEE/XWE+M="
+    version = "v0.0.0-20250101154619-4bdde671e0a1"
+    hash = "sha256-8mewNCfdfhZtkckVxxJA3aNS7mGZEwg6xXymEq8g1wY="
   [mod."github.com/sirupsen/logrus"]
     version = "v1.9.3"
     hash = "sha256-EnxsWdEUPYid+aZ9H4/iMTs1XMvCLbXZRDyvj89Ebms="
@@ -17,14 +17,14 @@ schema = 3
     version = "v1.10.1"
     hash = "sha256-OP6wdqk4dvBD8U5aicTkySHZ2s0LWnBo2TST2SmgcpM="
   [mod."github.com/spf13/pflag"]
-    version = "v1.0.9"
-    hash = "sha256-YAjyYpq5BXCosVJtvYLWFG1t4gma2ylzc7ILLoj/hD8="
+    version = "v1.0.10"
+    hash = "sha256-uDPnWjHpSrzXr17KEYEA1yAbizfcsfo5AyztY2tS6ZU="
   [mod."golang.org/x/mod"]
-    version = "v0.28.0"
-    hash = "sha256-ijb9E3vzwTVg1vMI4jEkefbia0kXafECUtJ92Sr+qFA="
+    version = "v0.29.0"
+    hash = "sha256-UaJLv8CdfUpnT4nArFSt8lLpFVAGHYmT7jaZ6vPGuEQ="
   [mod."golang.org/x/sys"]
-    version = "v0.14.0"
-    hash = "sha256-ReIRQmONicRW9idzGVPCBx5TTcKacmQTF1vPC3L4SxY="
+    version = "v0.37.0"
+    hash = "sha256-5aT0xP02sW1o9sfJHtWoGGNVYDdwb9FyiX/n6RAlzPo="
   [mod."golang.org/x/tools/go/vcs"]
     version = "v0.1.0-deprecated"
     hash = "sha256-57YB10tiRsVSRvJqKYST+iON6yZYGL7eRSzrFcImC8Y="
